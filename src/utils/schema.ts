@@ -4,7 +4,7 @@ export const dataStepSchema = z.object({
   nip: z
     .string()
     .min(1, "Pole jest wymagane.")
-    .max(10, "Maksymalnie 10 znaków."),
+    .min(10, "Minimalnie 10 znaków."),
   city: z
     .string()
     .min(1, "Pole jest wymagane.")
