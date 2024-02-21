@@ -1,8 +1,8 @@
+import "@/index.css";
 import * as React from "react";
 import * as ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { DataStepForm } from "@/routes/data-step";
-import "@/index.css";
+import { DataStep } from "@/routes/data-step";
 import { Layout } from "@/components/ui/layout";
 import { ProductsStep } from "@/routes/products-step";
 
