@@ -1,24 +1,18 @@
 import { Button } from "@/components/ui/button";
 import { ControlledInput } from "@/components/ui/controlled-input";
-import { formAtom } from "@/utils/atom";
-import {
-  DataStepForm,
-  dataStepSchema,
-  defaultDataStepValues,
-} from "@/utils/schema";
+import { formStepAtom, formValuesAtom } from "@/utils/atoms";
+import { DataStepForm, dataStepSchema } from "@/utils/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAtom } from "jotai";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 
 export const DataStep = () => {
-  const navigate = useNavigate();
-
-  const [, setFormValues] = useAtom(formAtom);
+  const [formValues, setFormValues] = useAtom(formValuesAtom);
+  const [, setFormStep] = useAtom(formStepAtom);
 
   const { control, handleSubmit } = useForm<DataStepForm>({
     resolver: zodResolver(dataStepSchema),
-    defaultValues: defaultDataStepValues,
+    defaultValues: formValues["dataStep"],
   });
 
   const handleOnSubmit: SubmitHandler<DataStepForm> = (formData) => {
@@ -26,7 +20,7 @@ export const DataStep = () => {
       draft.dataStep = formData;
     });
 
-    navigate("/products-step");
+    setFormStep("productsStep");
   };
 
   return (

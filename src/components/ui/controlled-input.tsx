@@ -13,24 +13,23 @@ type Props<T extends FieldValues> = {
   placeholder: string;
   digitsOnly?: boolean;
   postCode?: boolean;
+  suffix?: string;
 } & InputHTMLAttributes<HTMLInputElement>;
 
 export const ControlledInput = <T extends FieldValues>({
   control,
   name,
   label,
-  digitsOnly = false,
-  postCode = false,
+  digitsOnly,
+  postCode,
+  suffix,
+  type,
   ...restProps
 }: Props<T>) => (
   <Controller
     control={control}
     name={name}
     render={({ field, fieldState: { error } }) => {
-      const { inputMode, type } = restProps;
-
-      const inputKeyboardType = digitsOnly ? "numeric" : inputMode;
-
       const inputType = digitsOnly ? "text" : type;
 
       const handleDigitsOnly = (value: string) => {
@@ -83,6 +82,16 @@ export const ControlledInput = <T extends FieldValues>({
           return handlePostCode(value);
         }
 
+        if (type === "number") {
+          const validated = value.match(/^(\d*\.{0,1}\d{0,2}$)/);
+
+          if (!validated) {
+            return;
+          }
+
+          return field.onChange(value);
+        }
+
         field.onChange(value);
       };
 
@@ -94,8 +103,8 @@ export const ControlledInput = <T extends FieldValues>({
             {...field}
             onChange={onChange}
             type={inputType}
-            inputMode={inputKeyboardType}
-            className={error ? "border-red-500 focus-visible:ring-red-500" : ""}
+            error={error}
+            suffix={suffix}
           />
           {error && <p className="text-sm text-red-500">{error.message}</p>}
         </div>
