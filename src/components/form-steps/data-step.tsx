@@ -31,8 +31,8 @@ export const DataStep = () => {
       <ControlledInput
         control={control}
         name="nip"
-        label="Nip firmy"
-        placeholder="np. 0123456789"
+        label="NIP firmy"
+        placeholder="Wprowadź NIP"
         digitsOnly
         maxLength={10}
       />
@@ -41,21 +41,21 @@ export const DataStep = () => {
         control={control}
         name="city"
         label="Miasto"
-        placeholder="np. Warszawa"
+        placeholder="Wprowadź miasto"
       />
 
       <ControlledInput
         control={control}
         name="street"
         label="Ulica"
-        placeholder="np. Długa 12"
+        placeholder="Wprowadź ulicę i numer mieszkania"
       />
 
       <ControlledInput
         control={control}
         name="postCode"
         label="Kod pocztowy"
-        placeholder="np. 00-005"
+        placeholder="Wprowadź kod pocztowy"
         postCode
       />
 

@@ -12,7 +12,7 @@ export const PaymentSection = () => {
 
   return (
     <div className="flex flex-col gap-1 py-4">
-      <div className="flex justify-between">
+      <div className="flex justify-between items-center">
         <div className="font-semibold">Płatność</div>
         <Button
           size="icon"
@@ -22,20 +22,22 @@ export const PaymentSection = () => {
           <EditIcon />
         </Button>
       </div>
-      <div className="text-sm text-slate-800">
-        Ilość rat: {numberOfInstalment}
-      </div>
-      <div className="text-sm text-slate-800">
-        Wysokość raty:{" "}
-        {calculateInstalmentValue({
-          products: formValues["productsStep"].products,
-          ownContribution,
-          numberOfInstalment,
-        })}{" "}
-        zł
-      </div>
-      <div className="text-sm text-slate-800">
-        Wpłata własna: {ownContribution} zł
+      <div className="flex flex-col gap-1 px-4">
+        <div className="text-sm text-slate-800">
+          Ilość rat: {numberOfInstalment}
+        </div>
+        <div className="text-sm text-slate-800">
+          Wysokość raty:{" "}
+          {calculateInstalmentValue({
+            products: formValues["productsStep"].products,
+            ownContribution,
+            numberOfInstalment,
+          })}{" "}
+          zł
+        </div>
+        <div className="text-sm text-slate-800">
+          Wpłata własna: {ownContribution} zł
+        </div>
       </div>
     </div>
   );

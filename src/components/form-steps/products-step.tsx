@@ -65,14 +65,14 @@ export const ProductsStep = () => {
             control={control}
             name={`products.${index}.name`}
             label="Nazwa produktu"
-            placeholder="Laptop"
+            placeholder={`Wpisz nazwę ${index + 1} produktu`}
           />
 
           <ControlledInput
             control={control}
             name={`products.${index}.gross`}
             label="Wartość brutto"
-            placeholder="np. 2000"
+            placeholder="Wprowadź wartość brutto"
             suffix="zł"
             type="number"
           />
@@ -80,9 +80,9 @@ export const ProductsStep = () => {
           <ControlledSelect
             control={control}
             name={`products.${index}.vat`}
-            label="Vat"
+            label="VAT"
             options={["23%", "8%", "5%", "0%"]}
-            placeholder="np. 23%"
+            placeholder="Wybierz stawkę VAT"
           />
 
           <ControlledSelect
@@ -92,7 +92,7 @@ export const ProductsStep = () => {
             options={Array.from({ length: 100 }, (_, index) =>
               String(index + 1)
             )}
-            placeholder="np. 3"
+            placeholder="3"
           />
 
           <div className="w-full flex justify-end">

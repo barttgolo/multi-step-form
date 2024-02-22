@@ -25,7 +25,11 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           {...props}
         />
         {suffix && (
-          <div className="absolute right-4 top-1/2 -translate-y-1/2">
+          <div
+            className={`absolute right-4 top-1/2 -translate-y-1/2 ${
+              !props.value ? "text-slate-500" : ""
+            }`}
+          >
             {suffix}
           </div>
         )}

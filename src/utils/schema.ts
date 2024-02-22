@@ -36,7 +36,12 @@ export const productsStepSchema = z.object({
           .string()
           .min(1, "Pole jest wymagane.")
           .max(100, "Wpisana wartość jest za długa."),
-        gross: z.string().min(1, "Pole jest wymagane."),
+        gross: z
+          .string()
+          .min(1, "Pole jest wymagane.")
+          .refine((val) => Number(val) > 0, {
+            message: "Wartość musi być większa od 0.",
+          }),
         quantity: z.string().min(1, "Pole jest wymagane."),
         vat: z.string().min(1, "Pole jest wymagane."),
       })

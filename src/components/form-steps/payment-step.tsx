@@ -62,7 +62,7 @@ export const PaymentStep = () => {
         control={control}
         name="ownContribution"
         label="Udział własny"
-        placeholder="np. 2000"
+        placeholder="Wpisz udział własny"
         suffix="zł"
         type="number"
       />

@@ -11,7 +11,7 @@ export const AddressSection = () => {
 
   return (
     <div className="flex flex-col gap-1 border-b border-slate-300 py-4">
-      <div className="flex justify-between">
+      <div className="flex justify-between items-center">
         <div className="font-semibold">Dane</div>
         <Button
           size="icon"
@@ -21,9 +21,11 @@ export const AddressSection = () => {
           <EditIcon />
         </Button>
       </div>
-      <div className="text-sm text-slate-800">NIP: {nip}</div>
-      <div className="text-sm text-slate-800">
-        Adres: {street}, {postCode} {city}
+      <div className="flex flex-col gap-1 px-4">
+        <div className="text-sm text-slate-800">NIP: {nip}</div>
+        <div className="text-sm text-slate-800">
+          Adres: {street}, {postCode} {city}
+        </div>
       </div>
     </div>
   );

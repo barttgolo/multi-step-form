@@ -23,7 +23,7 @@ type FormValuesAtom = {
   paymentStep: PaymentStepForm;
 };
 
-const defaultFormValuesAtom: FormValuesAtom = {
+export const defaultFormValuesAtom: FormValuesAtom = {
   dataStep: defaultDataStepValues,
   productsStep: defaultProductStepValues,
   paymentStep: defaultPaymentStepValues,
