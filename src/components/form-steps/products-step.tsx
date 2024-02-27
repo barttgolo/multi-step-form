@@ -19,6 +19,7 @@ export const ProductsStep = () => {
   const {
     control,
     handleSubmit,
+    getValues,
     formState: { errors },
   } = useForm<ProductStepForm>({
     resolver: zodResolver(productsStepSchema),
@@ -38,10 +39,31 @@ export const ProductsStep = () => {
     setFormStep("paymentStep");
   };
 
+  const preSubmit = () => {
+    const { products } = getValues();
+
+    if (products.length > 1) {
+      const emptyIndexes = products.reduce((indexes, product, index) => {
+        if (Object.values(product).every((value) => !value)) {
+          indexes.push(index);
+        }
+
+        return indexes;
+      }, [] as number[]);
+
+      emptyIndexes.reverse().map((emptyIndexes) => remove(emptyIndexes));
+    }
+
+    handleSubmit(handleOnSubmit)();
+  };
+
   return (
     <form
       className="flex flex-col gap-3"
-      onSubmit={handleSubmit(handleOnSubmit)}
+      onSubmit={(e) => {
+        e.preventDefault();
+        preSubmit();
+      }}
     >
       {errors.products?.root?.message && (
         <p className="text-sm text-red-500">{errors.products?.root?.message}</p>
@@ -82,7 +104,7 @@ export const ProductsStep = () => {
             name={`products.${index}.quantity`}
             label="Ilość produktów"
             options={Array.from({ length: 100 }, (_, index) =>
-              String(index + 1),
+              String(index + 1)
             )}
             placeholder="3"
           />
