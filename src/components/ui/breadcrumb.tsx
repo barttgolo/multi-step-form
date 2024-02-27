@@ -28,9 +28,8 @@ export const Breadcrumbs = () => {
   return (
     <div className="flex gap-1">
       {activeSteps.map((step, index) => (
-        <>
+        <div key={step} className="flex gap-1">
           <div
-            key={step}
             className="cursor-pointer text-xs hover:text-slate-800"
             onClick={() => setFormStep(step)}
           >
@@ -39,7 +38,7 @@ export const Breadcrumbs = () => {
           {index + 1 !== activeSteps.length && (
             <div className="cursor-pointer text-xs hover:text-slate-800">/</div>
           )}
-        </>
+        </div>
       ))}
     </div>
   );
