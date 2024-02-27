@@ -1,42 +1,48 @@
 import { FormStepsAtom, formStepAtom } from "@/utils/atoms";
 import { useAtom } from "jotai";
+import { ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
 
-const titlesMap: Record<FormStepsAtom, string> = {
+const stepsMap: Record<FormStepsAtom, string> = {
   dataStep: "Dane",
   productsStep: "Produkty",
   paymentStep: "Płatność",
   summaryStep: "Podsumowanie",
 };
 
+const steps = Object.entries(stepsMap) as [FormStepsAtom, string][];
+
 export const Breadcrumbs = () => {
-  const [activeSteps, setActiveSteps] = useState<FormStepsAtom[]>([]);
+  const [reachedSteps, setReachedSteps] = useState<FormStepsAtom[]>([]);
   const [currentFormStep, setFormStep] = useAtom(formStepAtom);
+
   useEffect(() => {
-    const activeStepIndex = Object.keys(titlesMap).findIndex(
-      (el) => el === currentFormStep,
-    );
-
-    const activeSteps = Object.keys(titlesMap).slice(
-      0,
-      activeStepIndex + 1,
-    ) as FormStepsAtom[];
-
-    setActiveSteps(activeSteps);
+    setReachedSteps((prev) => [...new Set([...prev, currentFormStep])]);
   }, [currentFormStep]);
+
+  const handleClickStep = (step: FormStepsAtom) => {
+    if (!reachedSteps.includes(step)) {
+      return;
+    }
+
+    setFormStep(step);
+  };
 
   return (
     <div className="flex gap-1">
-      {activeSteps.map((step, index) => (
-        <div key={step} className="flex gap-1">
-          <div
-            className="cursor-pointer text-xs hover:text-slate-800"
-            onClick={() => setFormStep(step)}
-          >
-            {titlesMap[step]}
-          </div>
-          {index + 1 !== activeSteps.length && (
-            <div className="cursor-pointer text-xs hover:text-slate-800">/</div>
+      {steps.map(([step, title], index) => (
+        <div
+          key={step}
+          className={`cursor-pointer text-xs flex gap-1 items-center ${
+            reachedSteps.includes(step)
+              ? "text-slate-900 hover:text-slate-500 hover:font-semibold "
+              : "text-slate-200"
+          }`}
+          onClick={() => handleClickStep(step)}
+        >
+          <div>{title}</div>
+          {index + 1 !== Object.keys(stepsMap).length && (
+            <ArrowRight width={15} height={15} />
           )}
         </div>
       ))}

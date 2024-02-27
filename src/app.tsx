@@ -4,12 +4,7 @@ import { PaymentStep } from "@/components/form-steps/payment-step";
 import { ProductsStep } from "@/components/form-steps/products-step";
 import { SummaryStep } from "@/components/summary-step";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  FormStepsAtom,
-  defaultFormValuesAtom,
-  formStepAtom,
-  formValuesAtom,
-} from "@/utils/atoms";
+import { FormStepsAtom, formStepAtom } from "@/utils/atoms";
 import { Breadcrumbs } from "@/components/ui/breadcrumb";
 
 const blockManager: Record<FormStepsAtom, JSX.Element> = {
@@ -20,13 +15,7 @@ const blockManager: Record<FormStepsAtom, JSX.Element> = {
 };
 
 export const App = () => {
-  const [currentFormStep, setFormStep] = useAtom(formStepAtom);
-  const [, setFormValues] = useAtom(formValuesAtom);
-
-  const handleClearForm = () => {
-    setFormStep("dataStep");
-    setFormValues(defaultFormValuesAtom);
-  };
+  const [currentFormStep] = useAtom(formStepAtom);
 
   return (
     <div className="flex h-full min-h-screen items-center justify-center bg-gray-200">
@@ -34,10 +23,7 @@ export const App = () => {
         <CardHeader>
           <CardTitle className="flex justify-between">
             <Breadcrumbs />
-            <div
-              onClick={handleClearForm}
-              className="fade-in-30 cursor-pointer rounded-md border-2 border-solid border-slate-700 bg-slate-100 p-4 text-xl transition-colors duration-300 hover:bg-slate-700 hover:text-white"
-            >
+            <div className="fade-in-30 cursor-pointer rounded-md border-2 border-solid border-slate-700 bg-slate-100 p-4 text-xl transition-colors duration-300 hover:bg-slate-700 hover:text-white">
               Multi step form
             </div>
           </CardTitle>
