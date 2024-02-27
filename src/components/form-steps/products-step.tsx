@@ -43,14 +43,6 @@ export const ProductsStep = () => {
       className="flex flex-col gap-3"
       onSubmit={handleSubmit(handleOnSubmit)}
     >
-      <Button
-        type="button"
-        variant="secondary"
-        onClick={() => append(defaultProductStepValues.products)}
-      >
-        Dodaj produkt
-      </Button>
-
       {errors.products?.root?.message && (
         <p className="text-sm text-red-500">{errors.products?.root?.message}</p>
       )}
@@ -58,7 +50,7 @@ export const ProductsStep = () => {
       {fields.map((field, index) => (
         <div
           key={field.id}
-          className="flex flex-col gap-4 bg-zinc-100 p-3 rounded-md"
+          className="flex flex-col gap-4 rounded-md bg-zinc-100 p-3"
         >
           <div className="text-center font-bold">Produkt nr. {index + 1}</div>
           <ControlledInput
@@ -90,12 +82,12 @@ export const ProductsStep = () => {
             name={`products.${index}.quantity`}
             label="Ilość produktów"
             options={Array.from({ length: 100 }, (_, index) =>
-              String(index + 1)
+              String(index + 1),
             )}
             placeholder="3"
           />
 
-          <div className="w-full flex justify-end">
+          <div className="flex w-full justify-end">
             <Button
               size="icon"
               variant="destructive"
@@ -108,7 +100,16 @@ export const ProductsStep = () => {
         </div>
       ))}
 
-      <Button>Potwierdź</Button>
+      <div className="flex flex-col gap-2">
+        <Button
+          type="button"
+          variant="secondary"
+          onClick={() => append(defaultProductStepValues.products)}
+        >
+          Dodaj produkt
+        </Button>
+        <Button>Potwierdź</Button>
+      </div>
     </form>
   );
 };

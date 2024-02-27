@@ -30,5 +30,5 @@ export const defaultFormValuesAtom: FormValuesAtom = {
 };
 
 export const formValuesAtom = withImmer(
-  atom<FormValuesAtom>(defaultFormValuesAtom)
+  atom<FormValuesAtom>(defaultFormValuesAtom),
 );

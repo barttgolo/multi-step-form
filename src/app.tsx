@@ -1,8 +1,8 @@
+import { useAtom } from "jotai";
 import { DataStep } from "@/components/form-steps/data-step";
 import { PaymentStep } from "@/components/form-steps/payment-step";
 import { ProductsStep } from "@/components/form-steps/products-step";
 import { SummaryStep } from "@/components/summary-step";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   FormStepsAtom,
@@ -10,8 +10,7 @@ import {
   formStepAtom,
   formValuesAtom,
 } from "@/utils/atoms";
-import { useAtom } from "jotai";
-import { ChevronLeft } from "lucide-react";
+import { Breadcrumbs } from "@/components/ui/breadcrumb";
 
 const blockManager: Record<FormStepsAtom, JSX.Element> = {
   dataStep: <DataStep />,
@@ -24,40 +23,20 @@ export const App = () => {
   const [currentFormStep, setFormStep] = useAtom(formStepAtom);
   const [, setFormValues] = useAtom(formValuesAtom);
 
-  const currentStepIndex = Object.keys(blockManager).findIndex(
-    (el) => el === currentFormStep
-  );
-
-  const handleGoBack = () => {
-    const prevStep = Object.keys(blockManager)[
-      currentStepIndex - 1
-    ] as FormStepsAtom;
-
-    setFormStep(prevStep);
-  };
-
   const handleClearForm = () => {
     setFormStep("dataStep");
     setFormValues(defaultFormValuesAtom);
   };
 
   return (
-    <div className="bg-gray-200 flex items-center justify-center min-h-screen h-full">
-      <Card className="w-[544px] my-6">
+    <div className="flex h-full min-h-screen items-center justify-center bg-gray-200">
+      <Card className="my-6 w-[544px]">
         <CardHeader>
-          <CardTitle
-            className={`flex items-center ${
-              currentStepIndex ? "justify-between" : "justify-end"
-            }`}
-          >
-            {!!currentStepIndex && (
-              <Button size="icon" variant="outline" onClick={handleGoBack}>
-                <ChevronLeft />
-              </Button>
-            )}
+          <CardTitle className="flex justify-between">
+            <Breadcrumbs />
             <div
               onClick={handleClearForm}
-              className="text-xl p-4 border-2 bg-slate-100 border-solid border-slate-700 hover:bg-slate-700 hover:text-white transition-colors duration-300 fade-in-30 cursor-pointer rounded-md"
+              className="fade-in-30 cursor-pointer rounded-md border-2 border-solid border-slate-700 bg-slate-100 p-4 text-xl transition-colors duration-300 hover:bg-slate-700 hover:text-white"
             >
               Multi step form
             </div>

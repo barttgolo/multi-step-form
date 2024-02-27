@@ -11,7 +11,7 @@ export const ProductsSection = () => {
 
   return (
     <div className="flex flex-col gap-4 border-b border-slate-300 py-4">
-      <div className="flex justify-between items-center">
+      <div className="flex items-center justify-between">
         <div className="font-semibold">Produkty</div>
         <Button
           size="icon"
@@ -24,9 +24,9 @@ export const ProductsSection = () => {
       {products.map(({ name, gross, vat, quantity }, index) => (
         <div
           key={index}
-          className="flex flex-col gap-4 bg-zinc-100 p-4 rounded-md"
+          className="flex flex-col gap-4 rounded-md bg-zinc-100 p-4"
         >
-          <div className="font-semibold text-sm text-slate-800">
+          <div className="text-sm font-semibold text-slate-800">
             Produkt nr. {index + 1}
           </div>
           <div className="text-sm text-slate-800">Nazwa: {name}</div>

@@ -44,7 +44,7 @@ export const productsStepSchema = z.object({
           }),
         quantity: z.string().min(1, "Pole jest wymagane."),
         vat: z.string().min(1, "Pole jest wymagane."),
-      })
+      }),
     )
     .min(1, "Wymagane jest dodanie przynajmniej jednego produktu"),
 });
@@ -74,5 +74,5 @@ export type PaymentStepForm = z.infer<typeof paymentStepSchema>;
 
 export const defaultPaymentStepValues: PaymentStepForm = {
   numberOfInstalment: "12",
-  ownContribution: "",
+  ownContribution: "0",
 };
