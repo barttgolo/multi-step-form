@@ -25,8 +25,6 @@ export const Breadcrumbs = () => {
     setActiveSteps(activeSteps);
   }, [currentFormStep]);
 
-  console.log(activeSteps);
-
   return (
     <div className="flex gap-1">
       {activeSteps.map((step, index) => (
