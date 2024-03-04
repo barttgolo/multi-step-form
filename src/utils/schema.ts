@@ -1,10 +1,14 @@
 import { z } from "zod";
 
-export const dataStepSchema = z.object({
-  nip: z
+export const BASE_VALIDATORS={
+  NIP:  z
     .string()
     .min(1, "Pole jest wymagane.")
-    .min(10, "Minimalnie 10 znaków."),
+    .min(10, "Minimalnie 10 znaków.")
+}
+
+export const dataStepSchema = z.object({
+  nip: BASE_VALIDATORS.NIP,
   city: z
     .string()
     .min(1, "Pole jest wymagane.")

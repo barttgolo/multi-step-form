@@ -10,6 +10,13 @@ export const PaymentSection = () => {
 
   const { numberOfInstalment, ownContribution } = formValues["paymentStep"];
 
+  //TODO: useMemo
+  const calculatedInstallmentValue = calculateInstalmentValue({
+    products: formValues["productsStep"].products,
+    ownContribution,
+    numberOfInstalment,
+  });
+
   return (
     <div className="flex flex-col gap-1 py-4">
       <div className="flex justify-between items-center">
@@ -27,13 +34,7 @@ export const PaymentSection = () => {
           Ilość rat: {numberOfInstalment}
         </div>
         <div className="text-sm text-slate-800">
-          Wysokość raty:{" "}
-          {calculateInstalmentValue({
-            products: formValues["productsStep"].products,
-            ownContribution,
-            numberOfInstalment,
-          })}{" "}
-          zł
+          Wysokość raty: {calculatedInstallmentValue} zł
         </div>
         <div className="text-sm text-slate-800">
           Wpłata własna: {ownContribution} zł
