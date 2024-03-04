@@ -1,10 +1,10 @@
-import { render, screen } from "@testing-library/react";
-import { describe, expect, test } from "vitest";
 import { DataStep } from "@/components/form-steps/dataStep/data-step";
+import { render } from "@/setupTests";
 
 describe("Tests for DataStep", () => {
   test("Validators on DataStep works correctly", () => {
-    render(<DataStep />);
+    const screen = render(<DataStep />);
+
     const nipInput = screen.getByTestId("nip");
     expect(nipInput).toBeInTheDocument();
 
