@@ -3,6 +3,7 @@ import { formValuesAtom, formStepAtom } from "@/utils/atoms";
 import { calculateInstalmentValue } from "@/utils/tools";
 import { useAtom } from "jotai";
 import { EditIcon } from "lucide-react";
+import { useMemo } from "react";
 
 export const PaymentSection = () => {
   const [formValues] = useAtom(formValuesAtom);
@@ -10,12 +11,15 @@ export const PaymentSection = () => {
 
   const { numberOfInstalment, ownContribution } = formValues["paymentStep"];
 
-  //TODO: useMemo
-  const calculatedInstallmentValue = calculateInstalmentValue({
-    products: formValues["productsStep"].products,
-    ownContribution,
-    numberOfInstalment,
-  });
+  const calculatedInstallmentValue = useMemo(
+    () =>
+      calculateInstalmentValue({
+        products: formValues["productsStep"].products,
+        ownContribution,
+        numberOfInstalment,
+      }),
+    [formValues, numberOfInstalment, ownContribution]
+  );
 
   return (
     <div className="flex flex-col gap-1 py-4">
