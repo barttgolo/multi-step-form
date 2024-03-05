@@ -17,7 +17,7 @@ export const DataStep = () => {
         placeholder="Wprowadź NIP"
         digitsOnly
         maxLength={10}
-        data-testId="nip"
+        data-testid="nip"
       />
 
       <ControlledInput
@@ -25,7 +25,7 @@ export const DataStep = () => {
         name="city"
         label="Miasto"
         placeholder="Wprowadź miasto"
-        data-testId="city"
+        data-testid="city"
       />
 
       <ControlledInput
@@ -33,7 +33,7 @@ export const DataStep = () => {
         name="street"
         label="Ulica"
         placeholder="Wprowadź ulicę i numer mieszkania"
-        data-testId="street"
+        data-testid="street"
       />
 
       <ControlledInput
@@ -42,7 +42,7 @@ export const DataStep = () => {
         label="Kod pocztowy"
         placeholder="Wprowadź kod pocztowy"
         postCode
-        data-testId="postCode"
+        data-testid="postCode"
       />
 
       <Button>Potwierdź</Button>
