@@ -1,5 +1,5 @@
 import { useAtom } from "jotai";
-import { DataStep } from "@/components/form-steps/data-step";
+import { DataStep } from "@/components/form-steps/dataStep/data-step";
 import { PaymentStep } from "@/components/form-steps/payment-step";
 import { ProductsStep } from "@/components/form-steps/products-step";
 import { SummaryStep } from "@/components/summary-step";

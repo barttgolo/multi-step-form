@@ -10,7 +10,7 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAtom } from "jotai";
 import { Trash } from "lucide-react";
-import { SubmitHandler, useFieldArray, useForm } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
 
 export const ProductsStep = () => {
   const [formValues, setFormValues] = useAtom(formValuesAtom);
@@ -18,7 +18,6 @@ export const ProductsStep = () => {
 
   const {
     control,
-    handleSubmit,
     getValues,
     formState: { errors },
   } = useForm<ProductStepForm>({
@@ -31,16 +30,9 @@ export const ProductsStep = () => {
     name: "products",
   });
 
-  const handleOnSubmit: SubmitHandler<ProductStepForm> = (formData) => {
-    setFormValues((draft) => {
-      draft.productsStep = formData;
-    });
-
-    setFormStep("paymentStep");
-  };
-
-  const preSubmit = () => {
-    const { products } = getValues();
+  const handleOnSubmit = () => {
+    const formData = getValues();
+    const { products } = formData;
 
     if (products.length > 1) {
       const emptyIndexes = products.reduce((indexes, product, index) => {
@@ -54,7 +46,11 @@ export const ProductsStep = () => {
       emptyIndexes.reverse().map((emptyIndexes) => remove(emptyIndexes));
     }
 
-    handleSubmit(handleOnSubmit)();
+    setFormValues((draft) => {
+      draft.productsStep = formData;
+    });
+
+    setFormStep("paymentStep");
   };
 
   return (
@@ -62,7 +58,7 @@ export const ProductsStep = () => {
       className="flex flex-col gap-3"
       onSubmit={(e) => {
         e.preventDefault();
-        preSubmit();
+        handleOnSubmit();
       }}
     >
       {errors.products?.root?.message && (

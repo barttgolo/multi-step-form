@@ -1,27 +1,9 @@
+import { useDataStep } from "@/components/form-steps/dataStep/useDataStep";
 import { Button } from "@/components/ui/button";
 import { ControlledInput } from "@/components/ui/controlled-input";
-import { formStepAtom, formValuesAtom } from "@/utils/atoms";
-import { DataStepForm, dataStepSchema } from "@/utils/schema";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useAtom } from "jotai";
-import { SubmitHandler, useForm } from "react-hook-form";
 
 export const DataStep = () => {
-  const [formValues, setFormValues] = useAtom(formValuesAtom);
-  const [, setFormStep] = useAtom(formStepAtom);
-
-  const { control, handleSubmit } = useForm<DataStepForm>({
-    resolver: zodResolver(dataStepSchema),
-    defaultValues: formValues["dataStep"],
-  });
-
-  const handleOnSubmit: SubmitHandler<DataStepForm> = (formData) => {
-    setFormValues((draft) => {
-      draft.dataStep = formData;
-    });
-
-    setFormStep("productsStep");
-  };
+  const { control, handleSubmit, handleOnSubmit } = useDataStep();
 
   return (
     <form
@@ -35,6 +17,7 @@ export const DataStep = () => {
         placeholder="Wprowadź NIP"
         digitsOnly
         maxLength={10}
+        data-testid="nip"
       />
 
       <ControlledInput
@@ -42,6 +25,7 @@ export const DataStep = () => {
         name="city"
         label="Miasto"
         placeholder="Wprowadź miasto"
+        data-testid="city"
       />
 
       <ControlledInput
@@ -49,6 +33,7 @@ export const DataStep = () => {
         name="street"
         label="Ulica"
         placeholder="Wprowadź ulicę i numer mieszkania"
+        data-testid="street"
       />
 
       <ControlledInput
@@ -57,6 +42,7 @@ export const DataStep = () => {
         label="Kod pocztowy"
         placeholder="Wprowadź kod pocztowy"
         postCode
+        data-testid="postCode"
       />
 
       <Button>Potwierdź</Button>

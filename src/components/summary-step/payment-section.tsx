@@ -3,12 +3,23 @@ import { formValuesAtom, formStepAtom } from "@/utils/atoms";
 import { calculateInstalmentValue } from "@/utils/tools";
 import { useAtom } from "jotai";
 import { EditIcon } from "lucide-react";
+import { useMemo } from "react";
 
 export const PaymentSection = () => {
   const [formValues] = useAtom(formValuesAtom);
   const [, setFormStep] = useAtom(formStepAtom);
 
   const { numberOfInstalment, ownContribution } = formValues["paymentStep"];
+
+  const calculatedInstallmentValue = useMemo(
+    () =>
+      calculateInstalmentValue({
+        products: formValues["productsStep"].products,
+        ownContribution,
+        numberOfInstalment,
+      }),
+    [formValues, numberOfInstalment, ownContribution]
+  );
 
   return (
     <div className="flex flex-col gap-1 py-4">
@@ -27,13 +38,7 @@ export const PaymentSection = () => {
           Ilość rat: {numberOfInstalment}
         </div>
         <div className="text-sm text-slate-800">
-          Wysokość raty:{" "}
-          {calculateInstalmentValue({
-            products: formValues["productsStep"].products,
-            ownContribution,
-            numberOfInstalment,
-          })}{" "}
-          zł
+          Wysokość raty: {calculatedInstallmentValue} zł
         </div>
         <div className="text-sm text-slate-800">
           Wpłata własna: {ownContribution} zł

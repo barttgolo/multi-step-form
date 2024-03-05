@@ -1,5 +1,17 @@
 import { ProductStepForm } from "@/utils/schema";
 
+export const getTotalProductsPrice = (
+  products: ProductStepForm["products"]
+) => {
+  return products.reduce((acc, curr) => {
+    const { gross, quantity } = curr;
+
+    const productFinalPrice = Number(gross) * Number(quantity);
+
+    return acc + productFinalPrice;
+  }, 0);
+};
+
 export const calculateInstalmentValue = ({
   products,
   ownContribution,
@@ -9,13 +21,7 @@ export const calculateInstalmentValue = ({
   ownContribution: string;
   numberOfInstalment: string;
 }) => {
-  const productsValues = products.reduce((acc, curr) => {
-    const { gross, quantity } = curr;
-
-    const productFinalPrice = Number(gross) * Number(quantity);
-
-    return acc + productFinalPrice;
-  }, 0);
+  const productsValues = getTotalProductsPrice(products);
 
   const instalmentValue =
     (productsValues - Number(ownContribution)) / Number(numberOfInstalment);
@@ -30,17 +36,7 @@ export const checkIfPaymentExceedsOrder = ({
   products: ProductStepForm["products"];
   ownContribution: string;
 }) => {
-  const productsValues = products.reduce((acc, curr) => {
-    const { gross, quantity } = curr;
+  const productsValues = getTotalProductsPrice(products);
 
-    const productFinalPrice = Number(gross) * Number(quantity);
-
-    return acc + productFinalPrice;
-  }, 0);
-
-  if (productsValues <= Number(ownContribution)) {
-    return true;
-  }
-
-  return false;
+  return productsValues <= Number(ownContribution);
 };
